@@ -63,30 +63,53 @@ const addReview = function(review, callback) {
   })
 }
 
-console.log(addReview({
-  rating: 900,
-  summary: 'Tristan added this review',
-  recommend: 1,
-  reported: 0,
-  response: 'This is Tristans response',
-  body: 'body yody yody yody yody',
-  date: '2004-12-4',
-  reviewer_name: 'Tristan',
-  helpfulness: 1,
-  product_id: 1,
-  reviewer_email: 'Tristan@your.moms'
-}, (err, data) => {
+const updateHelpfulness = function(review_id, helpfulness, callback) {
+
+  let queryString = `UPDATE Reviews Set helpfulness = ? WHERE id = ?`;
+
+  connection.query(queryString, [helpfulness, review_id], (err, data) => {
+    if (err) {
+      callback(err, null);
+      console.error('Error!', err);
+    } else {
+      callback(null, data);
+      console.log('Helpfulness added');
+    }
+  } )
+}
+
+updateHelpfulness(5777924, 3, (err, data) => {
   if (err) {
     console.log(err);
   } else {
     console.log(data);
-    console.log('Review added');
+    return data;
   }
-}));
+});
+
+// console.log(addReview({
+//   rating: 900,
+//   summary: 'Tristan added this review',
+//   recommend: 1,
+//   reported: 0,
+//   response: 'This is Tristans response',
+//   body: 'body yody yody yody yody',
+//   date: '2004-12-4',
+//   reviewer_name: 'Tristan',
+//   helpfulness: 1,
+//   product_id: 1,
+//   reviewer_email: 'Tristan@your.moms'
+// }, (err, data) => {
+//   if (err) {
+//     console.log(err);
+//   } else {
+//     console.log(data);
+//     console.log('Review added');
+//   }
+// }));
 
 
-console.log(getReviews(
-  1, (err, data) => {
+console.log(getReviews(1, (err, data) => {
   if (err) {
     console.log(err);
   } else {
@@ -96,7 +119,7 @@ console.log(getReviews(
 }));
 
 // console.log(getReviews(
-//   6, (err, data) => {
+//   , (err, data) => {
 //   if (err) {
 //     console.log(err);
 //   } else {
