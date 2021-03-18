@@ -37,10 +37,56 @@ const getPhotos = function (review_id, callback) {
   })
 }
 
+const addReview = function(review, callback) {
+
+  let queryString = `INSERT INTO Reviews (rating, summary, recommend, reported, response, body, date, reviewer_name, helpfulness, product_id, reviewer_email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+
+  connection.query(queryString, [
+    review.rating,
+    review.summary,
+    review.recommend,
+    review.reported,
+    review.response,
+    review.body,
+    review.date,
+    review.reviewer_name,
+    review.helpfulness,
+    review.product_id,
+    review.reviewer_email
+  ], (err, data) => {
+    if (err) {
+      callback(err);
+      console.error(err, null);
+    } else {
+      callback(null, data);
+    }
+  })
+}
+
+console.log(addReview({
+  rating: 900,
+  summary: 'Tristan added this review',
+  recommend: 1,
+  reported: 0,
+  response: 'This is Tristans response',
+  body: 'body yody yody yody yody',
+  date: '2004-12-4',
+  reviewer_name: 'Tristan',
+  helpfulness: 1,
+  product_id: 1,
+  reviewer_email: 'Tristan@your.moms'
+}, (err, data) => {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log(data);
+    console.log('Review added');
+  }
+}));
 
 
 console.log(getReviews(
-  2, (err, data) => {
+  1, (err, data) => {
   if (err) {
     console.log(err);
   } else {
