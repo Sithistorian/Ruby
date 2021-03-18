@@ -11,9 +11,7 @@ connection.connect()
 
 const getReviews = function (product_id, callback) {
 
-  //I want to get all the reviews with the photos but non of the reviews that have been reported i.e. have a 1 for their reported value
-
-  let queryString = `SELECT * FROM Reviews WHERE product_id = ?`
+  let queryString = `SELECT * FROM Reviews WHERE product_id = ? AND reported = 0`
 
   connection.query(queryString, [product_id], (err, data) => {
     if (err) {
@@ -22,13 +20,27 @@ const getReviews = function (product_id, callback) {
     } else {
       callback(null, data);
     }
-
   })
-
 }
 
+const getPhotos = function (review_id, callback) {
+
+  let queryString = `SELECT * FROM Photos WHERE review_id = ?`
+
+  connection.query(queryString, [review_id], (err, data) => {
+    if (err) {
+      callback(err);
+      console.error(err, null);
+    } else {
+      callback(null, data);
+    }
+  })
+}
+
+
+
 console.log(getReviews(
-  1, (err, data) => {
+  2, (err, data) => {
   if (err) {
     console.log(err);
   } else {
@@ -36,6 +48,16 @@ console.log(getReviews(
     return data;
   }
 }));
+
+// console.log(getReviews(
+//   6, (err, data) => {
+//   if (err) {
+//     console.log(err);
+//   } else {
+//     console.log(data);
+//     return data;
+//   }
+// }));
 
 
 module.exports.connection = {
