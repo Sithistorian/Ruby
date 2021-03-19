@@ -78,14 +78,40 @@ const updateHelpfulness = function(review_id, helpfulness, callback) {
   } )
 }
 
-updateHelpfulness(5777924, 3, (err, data) => {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log(data);
-    return data;
-  }
-});
+const updateReported = function(review_id, callback) {
+
+  let queryString = `UPDATE Reviews Set reported = 1 WHERE id = ?`;
+
+  connection.query(queryString, [review_id], (err, data) => {
+    if (err) {
+      callback(err, null);
+      console.error('Error!', err);
+    } else {
+      callback(null, data);
+      console.log('Helpfulness added');
+    }
+  } )
+}
+
+
+
+// updateReported(5777924, (err, data) => {
+//   if (err) {
+//     console.log(err);
+//   } else {
+//     console.log(data);
+//     return data;
+//   }
+// });
+
+// updateHelpfulness(5777924, 3, (err, data) => {
+//   if (err) {
+//     console.log(err);
+//   } else {
+//     console.log(data);
+//     return data;
+//   }
+// });
 
 // console.log(addReview({
 //   rating: 900,
@@ -109,14 +135,14 @@ updateHelpfulness(5777924, 3, (err, data) => {
 // }));
 
 
-console.log(getReviews(1, (err, data) => {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log(data);
-    return data;
-  }
-}));
+// console.log(getReviews(1, (err, data) => {
+//   if (err) {
+//     console.log(err);
+//   } else {
+//     console.log(data);
+//     return data;
+//   }
+// }));
 
 // console.log(getReviews(
 //   , (err, data) => {
