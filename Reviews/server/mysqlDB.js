@@ -65,6 +65,8 @@ const addReview = function(review, callback) {
 
 const updateHelpfulness = function(review_id, helpfulness, callback) {
 
+  //need to refactor to add 1
+
   let queryString = `UPDATE Reviews Set helpfulness = ? WHERE id = ?`;
 
   connection.query(queryString, [helpfulness, review_id], (err, data) => {
@@ -92,7 +94,6 @@ const updateReported = function(review_id, callback) {
     }
   } )
 }
-
 
 
 // updateReported(5777924, (err, data) => {
@@ -154,7 +155,21 @@ const updateReported = function(review_id, callback) {
 //   }
 // }));
 
+// console.log(getPhotos(2
+//   , (err, data) => {
+//   if (err) {
+//     console.log(err);
+//   } else {
+//     console.log(data);
+//     return data;
+//   }
+// }));
 
-module.exports.connection = {
-  getReviews
+
+module.exports = {
+  getReviews,
+  getPhotos,
+  addReview,
+  updateHelpfulness,
+  updateReported
 };
