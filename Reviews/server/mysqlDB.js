@@ -11,7 +11,9 @@ connection.connect()
 
 const getReviews = function (product_id, callback) {
 
-  let queryString = `SELECT * FROM Reviews WHERE product_id = ? AND reported = 0`
+  // let queryString = `SELECT * FROM Reviews WHERE product_id = ? AND reported = 0`
+
+  let queryString = `SELECT * FROM Reviews INNER JOIN Photos ON Reviews.id = Photos.review_id WHERE Reviews.product_id = ? AND reported = 0`
 
   connection.query(queryString, [product_id], (err, data) => {
     if (err) {
@@ -136,14 +138,14 @@ const updateReported = function(review_id, callback) {
 // }));
 
 
-// console.log(getReviews(1, (err, data) => {
-//   if (err) {
-//     console.log(err);
-//   } else {
-//     console.log(data);
-//     return data;
-//   }
-// }));
+console.log(getReviews(97786, (err, data) => {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log(data);
+    return data;
+  }
+}));
 
 // console.log(getReviews(
 //   , (err, data) => {
