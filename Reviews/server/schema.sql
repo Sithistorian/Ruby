@@ -11,13 +11,13 @@ USE SDC;
 DROP TABLE IF EXISTS Products;
 
 CREATE TABLE Products (
-  id INTEGER  AUTO_INCREMENT,
+  product_id INTEGER  AUTO_INCREMENT,
   _name VARCHAR(20),
   slogan VARCHAR(50),
   _description VARCHAR(100),
   category VARCHAR(30),
   default_price INTEGER,
-  PRIMARY KEY (id)
+  PRIMARY KEY (product_id)
 );
 
 -- ---
@@ -28,7 +28,7 @@ CREATE TABLE Products (
 DROP TABLE IF EXISTS Reviews;
 
 CREATE TABLE Reviews (
-  id INTEGER  AUTO_INCREMENT,
+  review_id INTEGER  AUTO_INCREMENT,
   rating INTEGER,
   summary VARCHAR(100),
   recommend BOOLEAN,
@@ -40,8 +40,8 @@ CREATE TABLE Reviews (
   helpfulness INTEGER,
   product_id INTEGER,
   reviewer_email VARCHAR(50),
-  PRIMARY KEY (id),
-  FOREIGN KEY (product_id) REFERENCES Products (id)
+  PRIMARY KEY (review_id),
+  FOREIGN KEY (product_id) REFERENCES Products (product_id)
 );
 
 -- ---
@@ -52,11 +52,11 @@ CREATE TABLE Reviews (
 DROP TABLE IF EXISTS Photos;
 
 CREATE TABLE Photos (
-  id INTEGER  AUTO_INCREMENT,
-  review_id INTEGER,
+  photo_id INTEGER  AUTO_INCREMENT,
+  reviewId INTEGER,
   _url VARCHAR(200),
-  PRIMARY KEY (id),
-  FOREIGN KEY (review_id) REFERENCES Reviews (id)
+  PRIMARY KEY (photo_id),
+  FOREIGN KEY (reviewId) REFERENCES Reviews (review_id)
 );
 
 -- ---
@@ -68,11 +68,11 @@ DROP TABLE IF EXISTS ReviewPhotos;
 
 CREATE TABLE ReviewPhotos (
   id INTEGER  AUTO_INCREMENT,
-  review_id INTEGER,
+  reviewId INTEGER,
   photoId INTEGER,
   PRIMARY KEY (id),
-  FOREIGN KEY (review_id) REFERENCES Reviews (id),
-  FOREIGN KEY (photoId) REFERENCES Photos (id)
+  FOREIGN KEY (reviewId) REFERENCES Reviews (review_id),
+  FOREIGN KEY (photoId) REFERENCES Photos (photo_id)
 );
 
 
@@ -84,10 +84,10 @@ CREATE TABLE ReviewPhotos (
 DROP TABLE IF EXISTS Characteristics;
 
 CREATE TABLE Characteristics (
-  id INTEGER  AUTO_INCREMENT,
+  characteristic_id INTEGER  AUTO_INCREMENT,
   product_id INTEGER,
   _name VARCHAR(30),
-  PRIMARY KEY (id)
+  PRIMARY KEY (characteristic_id)
 );
 
 -- ---
@@ -99,12 +99,12 @@ DROP TABLE IF EXISTS ReviewCharacteristics;
 
 CREATE TABLE ReviewCharacteristics (
   id INTEGER  AUTO_INCREMENT,
-  review_id INTEGER,
+  reviewId INTEGER,
   charId INTEGER,
   value DECIMAL,
   PRIMARY KEY (id),
-  FOREIGN KEY (review_id) REFERENCES Reviews (id),
-  FOREIGN KEY (charId) REFERENCES Characteristics (id)
+  FOREIGN KEY (reviewId) REFERENCES Reviews (review_id),
+  FOREIGN KEY (charId) REFERENCES Characteristics (characteristic_id)
 );
 
 -- ETL
@@ -116,7 +116,7 @@ FIELDS TERMINATED BY ','
 LINES TERMINATED BY '\n'
 IGNORE 1 LINES
 (
-id,
+product_id,
 _name,
 slogan,
 _description,
@@ -131,7 +131,7 @@ FIELDS TERMINATED BY ','
 LINES TERMINATED BY '\n'
 IGNORE 1 LINES
 (
-id,
+review_id,
 product_id,
 rating,
 date,
@@ -153,8 +153,8 @@ FIELDS TERMINATED BY ','
 LINES TERMINATED BY '\n'
 IGNORE 1 LINES
 (
-  id,
-  review_id,
+  photo_id,
+  reviewId,
   _url
 );
 
@@ -163,7 +163,7 @@ FIELDS TERMINATED BY ','
 LINES TERMINATED BY '\n'
 IGNORE 1 LINES
 (
-  id,
+  characteristic_id,
   product_id,
   _name
-)
+);

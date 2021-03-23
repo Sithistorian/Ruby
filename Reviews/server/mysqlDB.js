@@ -13,7 +13,7 @@ const getReviews = function (product_id, callback) {
 
   // let queryString = `SELECT * FROM Reviews WHERE product_id = ? AND reported = 0`
 
-  let queryString = `SELECT * FROM Reviews INNER JOIN Photos ON Reviews.id = Photos.review_id WHERE Reviews.product_id = ? AND reported = 0`
+  let queryString = `SELECT * FROM Reviews LEFT JOIN Photos ON Reviews.review_id = Photos.reviewId WHERE Reviews.product_id = ? AND reported = 0`
 
   connection.query(queryString, [product_id], (err, data) => {
     if (err) {
@@ -69,7 +69,7 @@ const updateHelpfulness = function(review_id, helpfulness, callback) {
 
   //need to refactor to add 1
 
-  let queryString = `UPDATE Reviews Set helpfulness = ? WHERE id = ?`;
+  let queryString = `UPDATE Reviews Set helpfulness = ? WHERE review_id = ?`;
 
   connection.query(queryString, [helpfulness, review_id], (err, data) => {
     if (err) {
@@ -84,7 +84,7 @@ const updateHelpfulness = function(review_id, helpfulness, callback) {
 
 const updateReported = function(review_id, callback) {
 
-  let queryString = `UPDATE Reviews Set reported = 1 WHERE id = ?`;
+  let queryString = `UPDATE Reviews Set reported = 1 WHERE review_id = ?`;
 
   connection.query(queryString, [review_id], (err, data) => {
     if (err) {
@@ -95,6 +95,21 @@ const updateReported = function(review_id, callback) {
       console.log('Helpfulness added');
     }
   } )
+}
+
+const getMetaData = function(product_id, callback) {
+
+  let queryString = `SELECT Reviews.rating, Reviews.recommend, Characteristics._name FROM Reviews INNER JOIN Characteristics ON Reviews.product_id = Characteristics.product_id WHERE Reviews.product_id = ? AND reported = 0`
+
+  connection.query(queryString, [product_id], (err, data) => {
+    if (err) {
+      callback(err, null);
+      console.error('Error', err);
+    } else {
+      callback(null, data);
+      console.log(data);
+    }
+  })
 }
 
 
@@ -138,7 +153,7 @@ const updateReported = function(review_id, callback) {
 // }));
 
 
-console.log(getReviews(97786, (err, data) => {
+console.log(getReviews(2, (err, data) => {
   if (err) {
     console.log(err);
   } else {
@@ -157,7 +172,7 @@ console.log(getReviews(97786, (err, data) => {
 //   }
 // }));
 
-// console.log(getPhotos(2
+// console.log(getPhotos(5
 //   , (err, data) => {
 //   if (err) {
 //     console.log(err);
@@ -166,6 +181,15 @@ console.log(getReviews(97786, (err, data) => {
 //     return data;
 //   }
 // }));
+
+// console.log(getMetaData(377790, (err, data) => {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       console.log(data);
+//       return data;
+//     }
+//   }));
 
 
 module.exports = {
