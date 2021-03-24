@@ -3,10 +3,18 @@ const app = express()
 const port = 3001
 const SDCmongoDB = require('./mongoDB.js');
 const db = require('./mysqlDB.js');
+const newRelic = require('newrelic');
+const fs = require('fs');
 
-// app.get('/', (req, res) => {
-//   res.send('Hello World!')
-// })
+app.get('/loaderio-506e06dba1650327a059f90bdb568b18.txt', (req, res) => {
+    fs.readFile('./loaderio-506e06dba1650327a059f90bdb568b18.txt',  {encoding: 'utf-8'}, (err, data) => {
+      if (err) {
+        console.error(err);
+      } else {
+        res.status(200).send(data);
+      }
+    })
+})
 
 let sortBy = function (data, filter) {
   if (filter === 'newest') {
@@ -106,6 +114,8 @@ app.get(`/reviews/`, (req, res) => {
     }
   })
 })
+
+
 
 
 

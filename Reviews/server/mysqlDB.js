@@ -153,14 +153,14 @@ const getMetaData = function(product_id, callback) {
 // }));
 
 
-console.log(getReviews(2, (err, data) => {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log(data);
-    return data;
-  }
-}));
+// console.log(getReviews(2, (err, data) => {
+//   if (err) {
+//     console.log(err);
+//   } else {
+//     console.log(data);
+//     return data;
+//   }
+// }));
 
 // console.log(getReviews(
 //   , (err, data) => {

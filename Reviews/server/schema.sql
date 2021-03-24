@@ -111,7 +111,7 @@ CREATE TABLE ReviewCharacteristics (
 
 -- Products
 
-LOAD DATA LOCAL INFILE './product.csv' INTO TABLE Products
+LOAD DATA LOCAL INFILE '/Volumes/Bastilla/SDC Data/product.csv' INTO TABLE Products
 FIELDS TERMINATED BY ','
 LINES TERMINATED BY '\n'
 IGNORE 1 LINES
@@ -126,7 +126,7 @@ default_price
 
 -- Reviews
 
-LOAD DATA LOCAL INFILE './reviews.csv' INTO TABLE Reviews
+LOAD DATA LOCAL INFILE '/Volumes/Bastilla/SDC Data/reviews.csv' INTO TABLE Reviews
 FIELDS TERMINATED BY ','
 LINES TERMINATED BY '\n'
 IGNORE 1 LINES
@@ -148,7 +148,7 @@ set date = DATE_FORMAT(date,'%Y/%c/%e');
 
 -- Photos
 
-LOAD DATA LOCAL INFILE './reviews_photos.csv' INTO TABLE Photos
+LOAD DATA LOCAL INFILE '/Volumes/Bastilla/SDC Data/reviews_photos.csv' INTO TABLE Photos
 FIELDS TERMINATED BY ','
 LINES TERMINATED BY '\n'
 IGNORE 1 LINES
@@ -158,7 +158,7 @@ IGNORE 1 LINES
   _url
 );
 
-LOAD DATA LOCAL INFILE './characteristics.csv' INTO TABLE Characteristics
+LOAD DATA LOCAL INFILE '/Volumes/Bastilla/SDC Data/characteristics.csv' INTO TABLE Characteristics
 FIELDS TERMINATED BY ','
 LINES TERMINATED BY '\n'
 IGNORE 1 LINES
