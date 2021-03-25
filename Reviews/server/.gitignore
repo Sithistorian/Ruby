@@ -1,3 +1,7 @@
 **/node_modules/
 
 *.pem
+
+/newrelic_agent.log
+
+/loaderio-506e06dba1650327a059f90bdb568b18.txt
