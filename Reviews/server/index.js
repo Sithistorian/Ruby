@@ -1,7 +1,6 @@
 const express = require('express')
 const app = express()
 const port = 3001
-const SDCmongoDB = require('./mongoDB.js');
 const db = require('./mysqlDB.js');
 const newRelic = require('newrelic');
 const fs = require('fs');
@@ -116,11 +115,6 @@ app.get(`/reviews/`, (req, res) => {
   })
 })
 
-
-
-
-
-// app.get('reviews/meta', (req, res) => )
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
